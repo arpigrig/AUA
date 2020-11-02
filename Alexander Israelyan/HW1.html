@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script>
+            // Introduction to Computer Science
+            // HOMEWORK 01
+            // by Alexander Israelyan
+            // Please get rid of /* */ to activate a respective example
+            // === EXERCISE 1 ===
+
+            function DrawCross(h, t){ 
+                if(h % 2 != 0 && t % 2 != 0 && h > 1 && t >= 1){     // checking whether the entered values are acceptable
+                    // upper part of vertical line
+                    for(i = (h - t)/2; i > 0; i--){                  // initiating the typing of lines
+                        for(j = (h - t)/2; j > 0; j--){                 // initiating the typing of spaces 
+                            document.write("&nbsp;&nbsp;");
+                        }
+                        for(k = t; k > 0; k--){                         // initiating the typing of asterisks
+                            document.write("*");
+                        }
+                        document.write("<br>");                         // jumping onto the next line
+                    }
+                    // horizontal line
+                    for(a = t; a > 0; a--){                          // initiating the typing of lines
+                        for(b = h; b > 0; b--){                         // initiating the typing of asterisks
+                            document.write("*");                        
+                        }
+                        document.write("<br>");                         // jumping onto the next line
+                    }
+                    // lower part of vertical line
+                    for(i = (h - t)/2; i > 0; i--){                 // the same process as before horizontal line
+                        for(j = (h - t)/2; j > 0; j--){
+                            document.write("&nbsp;&nbsp;");
+                        }
+                        for(k = t; k > 0; k--){
+                            document.write("*");
+                        }
+                        document.write("<br>");
+                    }
+                }
+            }
+            /*
+            DrawCross(9, 3);                                       //  calling the function 
+            */
+
+            // === EXERCISE 2 ===
+            
+            function ConvertGrade(grade){
+                if (grade == "A+"){
+                    document.write(4.0);
+                }
+                else if (grade == "A"){
+                    document.write(4.0);
+                }
+                else if (grade == "A-"){
+                    document.write(3.7);
+                }
+                else if (grade == "B+"){
+                    document.write(3.3);
+                }
+                else if (grade == "B"){
+                    document.write(3.0);
+                }
+                else if (grade == "B-"){
+                    document.write(2.7);
+                }
+                else if (grade == "C+"){
+                    document.write(2.3);
+                }
+                else if (grade == "C"){
+                    document.write(2.0);
+                }
+                else if (grade == "C-"){
+                    document.write(1.7);
+                }
+                else if (grade == "D+"){
+                    document.write(1.3);
+                }
+                else if (grade == "D"){
+                    document.write(1.0);
+                }
+                else if (grade == "F" || grade == "F-")
+                    document.write("FAIL");
+            }
+            /*
+            ConvertGrade("C+");
+            document.write("<br>");
+            ConvertGrade("F-");
+            */
+
+            // === EXERCISE 3 ===
+
+            function HappyHolidays(n){
+                for(i = 1; i <= n; i++){
+                    if(i % 4 == 0){
+                        document.write("Happy ");
+                    }
+                    else if(i % 5 == 0){
+                        document.write("Holidays ");
+                    }
+                    else{
+                        document.write(i + " ");
+                    }
+                }
+            }
+            /*
+            HappyHolidays(5);
+            document.write("<br>");
+            HappyHolidays(20);
+            */
+        </script>
+    </head>
+    <body>
+    </body>
+</html>

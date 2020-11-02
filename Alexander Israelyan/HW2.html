@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script>
+        // Introduction to Computer Science B
+        // HOMEWORK 02
+        // by Alexander Israelyan
+        // Please get rid of // to activate a respective example.
+
+        // === EXERCISE 1 ===
+
+        let test0 = ["a", "b", "c"];
+        let maxLength = 3;
+
+        function allPermutations(arr, maxLength) {                      // maxLength is going to be "the engine" of the recursion.
+
+            let permutationsArr = [];                                   // an array that'll contain all the possible pemutations
+            let localArr = [];                                          // contains new combinations, reset by temporary array to store the combinations from the next iteration.
+            let tempArr = [];                                           // an array to "clear", or reset, the local array for a new recursion call.
+
+            if (maxLength == 1) {                                       // the base case which adds to the final result all the elements.
+                for (let i of arr) {
+                    localArr.push(i);                                   // pushes the original elements in the local array.
+                }
+                return [permutationsArr.concat(localArr), localArr];    // unites all previous combinations with the original elements.
+            } 
+            else {
+                let arrays = allPermutations(arr, maxLength - 1);       // if the base case is not hit, recursion is called on this line.
+
+                permutationsArr = arrays[0];                            // getting access to the array with previous elements (previous permutationsArr)
+                localArr = arrays[1];                                   // getting access to the array with newly acquired elements (previous localArr)
+
+                for (let y of arr) {                                    // this nested loop "glues" each element with others, 
+                    for (let x of localArr) {                           // including itself, thanks to "let i of arr" which iterates 
+                        tempArr.push(y + x);                            // over the values of the array.
+                    }
+                }
+                localArr = tempArr;                                     // transferring values from temporary array to the local array.
+                tempArr = [];                                           // resetting the temporary array.
+
+                return [permutationsArr.concat(localArr), localArr];    // uniting and returning.
+            }
+        }
+        let test1 = allPermutations(test0, maxLength);                  // leaving out the second 
+        // console.log(test1[0]);                                       // array with the previous step.
+
+        // ***NOTE***
+        // P.S. I realize this algorithm is not the finest, because it should return one array only, not two, but this is the farthest
+        // I've come so far. Please provide me with the right solution or optimize it forward since I seem to be stuck.
+
+        // === EXERCISE 2 ===
+        // To get the desired result, we need to sort the rows in ascending order and the columns in descending order. To do that, we need to make use of transposition:
+        function transpose(arr) {
+            let result = [];                                            // creating an array to fill the values in.
+            for (let i in arr) {                                        // looping for every row.
+                result[i] = [];                                         // adding a new row.
+                for (let j in arr) {                                    // looping for every item. 
+                    result[i][j] = arr[j][i];                           // inserting the value in a switched manner.
+                }
+            }
+            return result;                                              // returning the array
+        }
+
+        function ReorderArray(array) {
+            for (let x in array) {                                      // sorting
+                array[x].sort();                                        // rows
+            }                                                           // in ascending order.
+
+            array = transpose(array);                                   // transposing the function. that is to say, rotate the values at a 90 degree angle (switch rows and columns)
+
+            for (let y in array) {                                      // sorting
+                array[y].sort(function (a, b) { return b - a });        // rows (the original columns)
+            }                                                           // in descending order.
+
+            array = transpose(array);                                   // tranposing again.
+
+            return array;                                               // returning the result.
+        }
+
+        test2 = [[3, 2, 1],
+        [9, 8, 7],
+        [6, 5, 4]];
+
+        test3 = [[1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9]
+        ]
+
+        // console.log(ReorderArray(test2));
+        // console.log(ReorderArray(test3));
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>
