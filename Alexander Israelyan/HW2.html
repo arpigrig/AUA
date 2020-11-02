@@ -24,7 +24,7 @@
                     localArr.push(i);                                   // pushes the original elements in the local array.
                 }
                 return [permutationsArr.concat(localArr), localArr];    // unites all previous combinations with the original elements.
-            } 
+            }
             else {
                 let arrays = allPermutations(arr, maxLength - 1);       // if the base case is not hit, recursion is called on this line.
 
@@ -50,7 +50,39 @@
         // I've come so far. Please provide me with the right solution or optimize it forward since I seem to be stuck.
 
         // === EXERCISE 2 ===
-        // To get the desired result, we need to sort the rows in ascending order and the columns in descending order. To do that, we need to make use of transposition:
+        // To get the desired result, we need to sort the rows in ascending order and the columns in descending order. 
+
+        // To do that, we need to make use of sorting and transposition.
+
+        // Creating a function for sorting (I'm gonna use insertion sort which I learned from Computer Science course on Khan Academy):
+        function insert(array, rightIndex, value) {
+            let j = rightIndex;                                         // the insert function makes room for value by 
+            while (j >= 0 && array[j] > value) {                        // moving items bigger than value to the right;
+                array[j + 1] = array[j];                                // it goes from rightIndex until finds an element 
+                j--;                                                    // that is less than or equal to value or reaches 0 (beginning); 
+            }                                                           // when there's room for value, it can replace the added element.
+            array[j + 1] = value;                                       
+        };
+
+        function insertionSort(array) {                                 // the sorting process inserts every element
+            for (let i in array) {                                      // of the array from the beginning in itself, thus sorting it.
+                insert(array, i - 1, array[i]);
+            }
+        };
+
+        function reverseArray(array){                                   // this is a function that reverses elements. it can be used
+            let result = [];                                            // to convert ascending order into descending one.
+            for(x = array.length - 1; x >= 0; x--){                     // reverse by using a reversed iterator.
+                result.push(array[x]);                                  // add elements in the result from the original array backwards
+            }
+            return result;
+        }
+        let testA = [5, 1, 0, -10, -2];
+        // testA = insertionSort(testA);
+        // console.log(testA);
+        // console.log(reverseArray(testA));
+
+        // Creating a function for transposition:
         function transpose(arr) {
             let result = [];                                            // creating an array to fill the values in.
             for (let i in arr) {                                        // looping for every row.
@@ -62,16 +94,18 @@
             return result;                                              // returning the array
         }
 
+        // The main function:
         function ReorderArray(array) {
             for (let x in array) {                                      // sorting
-                array[x].sort();                                        // rows
+                insertionSort(array[x]);                                // rows
             }                                                           // in ascending order.
 
             array = transpose(array);                                   // transposing the function. that is to say, rotate the values at a 90 degree angle (switch rows and columns)
 
             for (let y in array) {                                      // sorting
-                array[y].sort(function (a, b) { return b - a });        // rows (the original columns)
-            }                                                           // in descending order.
+                insertionSort(array[y]);                                // rows (the original columns) in ascending order,
+                array[y] = reverseArray(array[y]);                      // then reversing it to get descending order.
+            }
 
             array = transpose(array);                                   // tranposing again.
 
